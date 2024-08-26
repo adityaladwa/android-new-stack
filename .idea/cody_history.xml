@@ -150,6 +150,111 @@
                   </llm>
                 </llm>
               </chat>
+              <chat>
+                <internalId value="187086bd-dcd8-4acd-b830-1f2ceee68724" />
+                <llm>
+                  <llm>
+                    <model value="ollama/codellama:7b-code" />
+                    <provider value="Ollama" />
+                    <tags>
+                      <list>
+                        <option value="local" />
+                        <option value="ollama" />
+                        <option value="experimental" />
+                      </list>
+                    </tags>
+                    <title value="codellama:7b code" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
+                  </llm>
+                </llm>
+              </chat>
+              <chat>
+                <internalId value="bdd564ac-8bb6-4e7d-b94e-590bdbfca608" />
+                <llm>
+                  <llm>
+                    <model value="ollama/codellama:7b-code" />
+                    <provider value="Ollama" />
+                    <tags>
+                      <list>
+                        <option value="local" />
+                        <option value="ollama" />
+                        <option value="experimental" />
+                      </list>
+                    </tags>
+                    <title value="codellama:7b code" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
+                  </llm>
+                </llm>
+                <messages>
+                  <list>
+                    <message>
+                      <speaker value="HUMAN" />
+                      <text value="can you help me fix this issue?&#10;&#10;Caused by: org.gradle.api.internal.artifacts.ivyservice.DefaultLenientConfiguration$ArtifactResolveException: Could not resolve all files for configuration ':app:debugRuntimeClasspath'." />
+                    </message>
+                    <message>
+                      <speaker value="ASSISTANT" />
+                      <text value="&#13;&#10;&gt; Could not find com.aditya.newstack:ui-common:1.0.0.&#13;&#10;  Searched in the following locations:&#13;&#10;      file:/C:/Users/Aditya/.m2/repository/com/aditya/newstack/ui-common/1.0.0/ui-common-1.0.0.jar&#13;&#10;```Ok.Codebase context from file app/src/main/java/com/aditya/newstack/MainActivity.kt:&#10;```kt&#10;package com.aditya.newstack&#10;&#10;import android.os.Bundle&#10;import androidx.activity.ComponentActivity&#10;import androidx.activity.compose.setContent&#10;import androidx.activity.enableEdgeToEdge&#10;import androidx.compose.foundation.layout.fillMaxSize&#10;import androidx.compose.foundation.layout.padding&#10;import androidx.compose.material3.Scaffold&#10;import androidx.compose.material3.Text&#10;import androidx.compose.runtime.Composable&#10;import androidx.compose.ui.Modifier&#10;import androidx.compose.ui.tooling.preview.Preview&#13;&#10;import com.aditya.newstack.ui.theme.AndroidnewstackTheme&#13;&#10;```Ok.Codebase context from file app/src/main/java/com/aditya/newstack/MainActivity.kt:&#10;```kt&#10;package com.aditya.newstack&#10;&#10;import android.os.Bundle&#10;import androidx.activity.ComponentActivity&#10;import androidx.activity.compose.setContent&#10;import androidx.activity.enableEdgeToEdge&#10;import androidx.compose.foundation.layout.fillMaxSize&#10;import androidx.compose.foundation.layout.padding&#10;import androidx.compose.material3.Scaffold&#10;import androidx.compose.material3.Text&#10;import androidx.compose.runtime.Composable&#10;import androidx.compose.ui.Modifier&#10;import androidx.compose.ui.tooling.preview.Preview&#13;&#10;import com.aditya.newstack.ui.theme.AndroidnewstackTheme&#13;&#10;```Ok.Codebase context from file app/src/main/java/com/aditya/newstack/MainActivity.kt:&#10;```kt&#10;package com.aditya.newstack&#10;&#10;import android.os.Bundle&#10;import androidx.activity.ComponentActivity&#10;import androidx.activity.compose.setContent&#10;import androidx.ac" />
+                    </message>
+                  </list>
+                </messages>
+                <updatedAt value="2024-08-27T01:59:07.594959" />
+              </chat>
+              <chat>
+                <internalId value="3ced3784-cd54-48de-abcc-070a0bf82682" />
+                <llm>
+                  <llm>
+                    <model value="ollama/codellama:7b-code" />
+                    <provider value="Ollama" />
+                    <tags>
+                      <list>
+                        <option value="local" />
+                        <option value="ollama" />
+                        <option value="experimental" />
+                      </list>
+                    </tags>
+                    <title value="codellama:7b code" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
+                  </llm>
+                </llm>
+              </chat>
+              <chat>
+                <internalId value="76606bb4-96f0-4fa8-8474-cd765c703f0c" />
+                <llm>
+                  <llm>
+                    <model value="ollama/codellama:7b-code" />
+                    <provider value="Ollama" />
+                    <tags>
+                      <list>
+                        <option value="local" />
+                        <option value="ollama" />
+                        <option value="experimental" />
+                      </list>
+                    </tags>
+                    <title value="codellama:7b code" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
+                  </llm>
+                </llm>
+              </chat>
             </list>
           </chats>
           <defaultLlm>

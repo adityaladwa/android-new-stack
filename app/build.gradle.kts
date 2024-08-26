@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.kapt)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -61,6 +64,9 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
 
+    //serialization
+    implementation(libs.kotlinx.serialization.json)
+
     //square
     implementation(platform(libs.squareup.okhttp.bom))
     implementation(libs.squareup.okhttp)
@@ -70,10 +76,9 @@ dependencies {
     implementation(libs.squareup.retrofit.converter.kotlinx.serialization)
 
 
-
-
-    //serialization
-    implementation(libs.kotlinx.serialization.json)
+    //hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
 
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
