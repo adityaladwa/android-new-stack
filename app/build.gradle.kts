@@ -1,5 +1,3 @@
-import com.google.protobuf.gradle.id
-import com.google.protobuf.gradle.proto
 
 plugins {
     alias(libs.plugins.android.application)
@@ -7,7 +5,6 @@ plugins {
     alias(libs.plugins.kapt)
     alias(libs.plugins.hilt)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.protobuf)
 }
 
 android {
@@ -54,50 +51,20 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-
-    sourceSets {
-        getByName("main") {
-            proto {
-                srcDir("src/main/proto")
-            }
-        }
-        getByName("test") {
-            proto {
-                srcDir("src/test/proto")
-            }
-        }
-        getByName("androidTest") {
-            proto {
-                srcDir("src/androidTest/proto")
-            }
-        }
-    }
-}
-
-protobuf {
-    protoc {
-        artifact = libs.protoc.get().toString()
-    }
-    generateProtoTasks {
-        all().forEach { task ->
-            task.builtins {
-                create("java") {
-                    option("lite")
-                }
-                create("kotlin") {
-                    option("lite")
-                }
-            }
-        }
-    }
 }
 
 dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+
+    // UI
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.material3)
 
     //coroutines
     implementation(libs.kotlinx.coroutines.core)
@@ -105,6 +72,7 @@ dependencies {
 
     //serialization
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.serialization.protobuf)
 
     //square
     implementation(platform(libs.squareup.okhttp.bom))
@@ -114,21 +82,12 @@ dependencies {
     implementation(libs.squareup.retrofit)
     implementation(libs.squareup.retrofit.converter.kotlinx.serialization)
 
-
     //hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
 
-    //protobuf
-    implementation(libs.protobuf.kotlin.lite)
-
     //datastore
     implementation(libs.datastore)
-
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
 
 
     testImplementation(libs.junit)
