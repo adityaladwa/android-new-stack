@@ -74,7 +74,6 @@ dependencies {
     implementation(libs.coil)
     implementation(libs.coil.compose)
 
-
     //serialization
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.serialization.protobuf)
