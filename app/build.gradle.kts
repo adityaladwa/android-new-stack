@@ -70,6 +70,11 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
 
+    //image loading
+    implementation(libs.coil)
+    implementation(libs.coil.compose)
+
+
     //serialization
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.serialization.protobuf)
@@ -88,7 +93,6 @@ dependencies {
 
     //datastore
     implementation(libs.datastore)
-
 
     testImplementation(libs.junit)
     debugImplementation(libs.androidx.ui.tooling)
