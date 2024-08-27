@@ -1,0 +1,7 @@
+syntax = "proto3";
+option java_package = "com.aditya.newstack";
+option java_multiple_files = true;
+
+message UserPreference {
+  bool isFirstTimeOpen = 1;
+}

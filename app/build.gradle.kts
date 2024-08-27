@@ -1,9 +1,13 @@
+import com.google.protobuf.gradle.id
+import com.google.protobuf.gradle.proto
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.kapt)
     alias(libs.plugins.hilt)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.protobuf)
 }
 
 android {
@@ -50,8 +54,43 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+    sourceSets {
+        getByName("main") {
+            proto {
+                srcDir("src/main/proto")
+            }
+        }
+        getByName("test") {
+            proto {
+                srcDir("src/test/proto")
+            }
+        }
+        getByName("androidTest") {
+            proto {
+                srcDir("src/androidTest/proto")
+            }
+        }
+    }
 }
 
+protobuf {
+    protoc {
+        artifact = libs.protoc.get().toString()
+    }
+    generateProtoTasks {
+        all().forEach { task ->
+            task.builtins {
+                create("java") {
+                    option("lite")
+                }
+                create("kotlin") {
+                    option("lite")
+                }
+            }
+        }
+    }
+}
 
 dependencies {
 
@@ -79,6 +118,12 @@ dependencies {
     //hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
+
+    //protobuf
+    implementation(libs.protobuf.kotlin.lite)
+
+    //datastore
+    implementation(libs.datastore)
 
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
