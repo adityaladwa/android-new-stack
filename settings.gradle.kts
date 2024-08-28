@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "android-new-stack"
 include(":app")
+include(":data")

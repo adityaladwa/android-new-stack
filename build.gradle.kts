@@ -9,5 +9,6 @@ plugins {
     kotlin("jvm") version libs.versions.kotlin
     kotlin("plugin.serialization") version libs.versions.kotlin
     kotlin("kapt") version libs.versions.kapt
+    alias(libs.plugins.android.library) apply false
 }
 

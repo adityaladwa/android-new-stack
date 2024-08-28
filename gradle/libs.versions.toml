@@ -15,7 +15,7 @@ activityCompose = "1.9.1"
 composeBom = "2024.08.00"
 
 squareup-okhttp-bom = "4.12.0"
-squareup-okio = "3.7.0"
+squareup-okio = "3.9.0"
 squareup-leakcanary = "2.14"
 squareup-retrofit = "2.11.0"
 
@@ -68,4 +68,5 @@ jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = 
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kapt" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+android-library = { id = "com.android.library", version.ref = "agp" }
 
