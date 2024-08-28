@@ -1,7 +1,5 @@
-plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.jetbrains.kotlin.android)
-}
+apply(plugin = "com.android.library")
+apply(plugin = "kotlin-android")
 
 android {
     namespace = "com.aditya.data"
