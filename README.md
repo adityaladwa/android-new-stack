@@ -13,12 +13,3 @@ Architecture will follow most of the [Google recommended architecture](https://d
 * Kotlin script instead of groovy
   * Use toml for versioning libraries
 * Coil for image loading
-
-
-Possible APIs you can use
-
-* https://www.mfapi.in/
-* https://developers.giphy.com/docs/sdk#content-types
-* https://unsplash.com/developers
-* https://cricket-postman.sportmonks.com/#f2147669-38a9-47e3-ae3e-753bda6c1f93
-* https://www.themoviedb.org/
