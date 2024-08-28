@@ -1,0 +1,24 @@
+// using a gradle file as gradle.kts can't be included in apply block
+android {
+    compileSdk = libs.versions.compileSdk.get().toInteger()
+
+    buildFeatures {
+        buildConfig = false // disable buildConfig to save build time
+    }
+
+    defaultConfig {
+        minSdk = libs.versions.minSdk.get().toInteger()
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+dependencies {
+    implementation libs.androidx.core.ktx
+    testImplementation libs.junit
+}

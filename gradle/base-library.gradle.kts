@@ -1,6 +1,3 @@
-apply(plugin = "com.android.library")
-apply(plugin = "kotlin-android")
-
 android {
     namespace = "com.aditya.data"
     compileSdk = libs.versions.compileSdk.get().toInt()
