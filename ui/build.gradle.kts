@@ -10,11 +10,17 @@ apply(from = rootProject.file("gradle/base-library.gradle"))
 
 android {
     namespace = "com.aditya.ui"
+
+    buildFeatures {
+        compose = true
+    }
 }
 
 dependencies {
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.material3)
+    api(platform(libs.androidx.compose.bom))
+    api(libs.androidx.activity.compose)
+    api(libs.androidx.ui)
+    api(libs.androidx.ui.graphics)
+    api(libs.androidx.material3)
+    api(libs.androidx.ui.tooling.preview)
 }

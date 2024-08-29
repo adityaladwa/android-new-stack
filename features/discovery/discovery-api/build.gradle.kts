@@ -15,4 +15,5 @@ android {
 dependencies {
     //serialization
     implementation(libs.kotlinx.serialization.json)
+
 }
