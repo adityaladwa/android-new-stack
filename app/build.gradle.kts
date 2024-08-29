@@ -61,6 +61,7 @@ android {
 
 dependencies {
 
+    implementation(project(":ui"))
     implementation(project(":data"))
     implementation(project(":discovery-impl"))
 
@@ -68,8 +69,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
 
     // UI
-    implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)

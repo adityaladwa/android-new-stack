@@ -29,3 +29,4 @@ project(":discovery-impl").projectDir = File(rootDir, "features/discovery/discov
 include(":discovery-api")
 project(":discovery-api").projectDir = File(rootDir, "features/discovery/discovery-api/")
 
+include(":ui")

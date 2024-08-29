@@ -1,4 +1,4 @@
-package com.aditya.newstack.ui.theme
+package com.aditya.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
