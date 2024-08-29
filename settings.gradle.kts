@@ -22,3 +22,10 @@ dependencyResolutionManagement {
 rootProject.name = "android-new-stack"
 include(":app")
 include(":data")
+
+include(":discovery-impl")
+project(":discovery-impl").projectDir = File(rootDir, "features/discovery/discovery-impl/")
+
+include(":discovery-api")
+project(":discovery-api").projectDir = File(rootDir, "features/discovery/discovery-api/")
+

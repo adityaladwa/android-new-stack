@@ -17,9 +17,5 @@
   - UI navigation tests that are useful as regression tests in CI.
 
 
-Problems
-
-- https://docs.gradle.org/current/userguide/custom_plugins.html#sec:convention_plugins
-  - create a convention plugin using the documentation above to extract common gradle library code
-  - use this as a reference project from android's sample architecture examples
-  - https://github.com/android/architecture-samples/tree/multimodule
+Problems to solve
+- api, impl modules

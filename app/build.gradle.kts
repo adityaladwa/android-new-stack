@@ -50,7 +50,6 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-
     sourceSets {
         getByName("main") {
             java {
@@ -61,6 +60,9 @@ android {
 }
 
 dependencies {
+
+    implementation(project(":data"))
+    implementation(project(":discovery-impl"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
