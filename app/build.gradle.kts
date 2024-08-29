@@ -51,7 +51,7 @@ android {
         }
     }
     sourceSets {
-        getByName("main") {
+        named("main") {
             java {
                 srcDirs("src/main/kotlin")
             }
@@ -85,13 +85,14 @@ dependencies {
 
     //serialization
     implementation(libs.kotlinx.serialization.json)
-    implementation(libs.kotlinx.serialization.protobuf)
 
     //square
     implementation(platform(libs.squareup.okhttp.bom))
     implementation(libs.squareup.okhttp)
     implementation(libs.squareup.okhttp.logging.interceptor)
+
     implementation(libs.squareup.okio)
+
     implementation(libs.squareup.retrofit)
     implementation(libs.squareup.retrofit.converter.kotlinx.serialization)
 

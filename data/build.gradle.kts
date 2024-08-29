@@ -10,3 +10,12 @@ apply(from = rootProject.file("gradle/base-library.gradle"))
 android {
     namespace = "com.aditya.data"
 }
+
+dependencies {
+    implementation(project(":discovery-api"))
+
+    //coroutines
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.squareup.retrofit)
+
+}

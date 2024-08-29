@@ -6,9 +6,6 @@ plugins {
     alias(libs.plugins.hilt) apply false
     alias(libs.plugins.compose.compiler) apply false
     alias(libs.plugins.android.library) apply false
-
-    kotlin("jvm") version libs.versions.kotlin
-    kotlin("plugin.serialization") version libs.versions.kotlin
-    kotlin("kapt") version libs.versions.kapt
+    alias(libs.plugins.kapt) apply false
 }
 
