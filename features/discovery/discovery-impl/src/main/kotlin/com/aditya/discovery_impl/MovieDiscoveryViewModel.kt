@@ -3,9 +3,9 @@ package com.aditya.discovery_impl
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aditya.data.MovieService
+import com.aditya.data.ViewModelResult
 import com.aditya.discovery_api.DiscoverMovieResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -29,11 +29,5 @@ class MovieDiscoveryViewModel @Inject constructor(
             SharingStarted.Lazily,
             ViewModelResult.Loading
         )
-    }
-
-    sealed class ViewModelResult<out T> {
-        data object Loading : ViewModelResult<Nothing>()
-        data class Success<out T>(val data: T) : ViewModelResult<T>()
-        data class Error(val exception: Throwable) : ViewModelResult<Nothing>()
     }
 }

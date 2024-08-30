@@ -8,14 +8,14 @@ data class DiscoverMovieResponse(
     @SerialName("page")
     val page: Int,
     @SerialName("results")
-    val results: List<Result>,
+    val movies: List<Movie>,
     @SerialName("total_pages")
     val totalPages: Int,
     @SerialName("total_results")
     val totalResults: Int
 ) {
     @Serializable
-    data class Result(
+    data class Movie(
         @SerialName("adult")
         val adult: Boolean,
         @SerialName("backdrop_path")
