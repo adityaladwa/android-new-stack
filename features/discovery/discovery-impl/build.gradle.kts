@@ -23,4 +23,8 @@ dependencies {
     //hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
+
+    //image loading
+    implementation(libs.coil)
+    implementation(libs.coil.compose)
 }
