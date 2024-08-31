@@ -12,8 +12,10 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/core/data" />
             <option value="$PROJECT_DIR$/core/ui" />
-            <option value="$PROJECT_DIR$/features/discovery/discovery-api" />
-            <option value="$PROJECT_DIR$/features/discovery/discovery-impl" />
+            <option value="$PROJECT_DIR$/features/movie-detail/movie-detail-api" />
+            <option value="$PROJECT_DIR$/features/movie-detail/movie-detail-impl" />
+            <option value="$PROJECT_DIR$/features/movie-discovery/discovery-api" />
+            <option value="$PROJECT_DIR$/features/movie-discovery/discovery-impl" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />
