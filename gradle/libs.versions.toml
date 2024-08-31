@@ -28,6 +28,9 @@ coil = "2.7.0"
 hilt = "2.52"
 
 junit = "4.13.2"
+appcompat = "1.7.0"
+material = "1.12.0"
+activity = "1.9.1"
 
 
 [libraries]
@@ -64,6 +67,9 @@ hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-comp
 
 coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 
 
 [plugins]

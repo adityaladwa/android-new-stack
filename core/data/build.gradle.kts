@@ -47,6 +47,7 @@ android {
 
 dependencies {
     implementation(project(":discovery-api"))
+    implementation(project(":movie-detail-api"))
 
     //coroutines
     implementation(libs.kotlinx.coroutines.core)

@@ -18,6 +18,11 @@ android {
 dependencies {
     implementation(project(":ui"))
     implementation(project(":data"))
+    api(project(":movie-detail-api"))
+
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.activity)
 
     //hilt
     implementation(libs.hilt.android)

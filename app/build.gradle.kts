@@ -64,6 +64,8 @@ dependencies {
     implementation(project(":ui"))
     implementation(project(":data"))
     implementation(project(":discovery-impl"))
+    implementation(project(":movie-detail-impl"))
+
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

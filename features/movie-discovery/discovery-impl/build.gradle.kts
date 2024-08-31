@@ -17,6 +17,7 @@ android {
 
 dependencies {
     implementation(project(":discovery-api"))
+    implementation(project(":movie-detail-api"))
     implementation(project(":ui"))
     implementation(project(":data"))
 

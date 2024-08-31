@@ -1,7 +1,5 @@
 package com.aditya.discovery_impl
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -38,19 +36,17 @@ import coil.compose.AsyncImage
 import com.aditya.data.BuildConfig
 import com.aditya.data.ViewModelResult
 import com.aditya.discovery_api.DiscoverMovieResponse
+import com.aditya.movie_detail_api.Navigator
 import com.aditya.ui.theme.AndroidnewstackTheme
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MovieDiscoveryActivity : ComponentActivity() {
     private val viewModel: MovieDiscoveryViewModel by viewModels()
 
-    companion object {
-        fun intent(context: Context): Intent {
-            return Intent(context, MovieDiscoveryActivity::class.java)
-        }
-    }
-
+    @Inject
+    lateinit var navigator: Navigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +54,7 @@ class MovieDiscoveryActivity : ComponentActivity() {
         setContent {
             AndroidnewstackTheme {
                 Scaffold(Modifier.fillMaxSize()) { innerPadding ->
-                    MovieDiscoveryScreen(Modifier.padding(innerPadding), viewModel)
+                    MovieDiscoveryScreen(Modifier.padding(innerPadding), viewModel, navigator)
                 }
             }
         }
@@ -66,7 +62,11 @@ class MovieDiscoveryActivity : ComponentActivity() {
 }
 
 @Composable
-fun MovieDiscoveryScreen(modifier: Modifier, viewModel: MovieDiscoveryViewModel) {
+fun MovieDiscoveryScreen(
+    modifier: Modifier,
+    viewModel: MovieDiscoveryViewModel,
+    navigator: Navigator
+) {
     val moviesFlow = remember { viewModel.discoverMovies() }
     val result by moviesFlow.collectAsStateWithLifecycle()
     when (val currentResult = result) {
@@ -76,7 +76,7 @@ fun MovieDiscoveryScreen(modifier: Modifier, viewModel: MovieDiscoveryViewModel)
 
         ViewModelResult.Loading -> ProgressLoader()
         is ViewModelResult.Success -> {
-            ShowMoviesGrid(modifier, currentResult.data.movies)
+            ShowMoviesGrid(modifier, currentResult.data.movies, navigator)
         }
     }
 }
@@ -97,7 +97,6 @@ fun ShowMovies(modifier: Modifier, movies: List<DiscoverMovieResponse.Movie>) {
                 AsyncImage(model = movie.posterUrl(), contentDescription = movie.title)
                 Text(
                     modifier = Modifier
-                        .clickable { }
                         .fillMaxWidth()
                         .padding(16.dp),
                     text = movie.title
@@ -108,16 +107,24 @@ fun ShowMovies(modifier: Modifier, movies: List<DiscoverMovieResponse.Movie>) {
 }
 
 @Composable
-fun ShowMoviesGrid(modifier: Modifier, movies: List<DiscoverMovieResponse.Movie>) {
+fun ShowMoviesGrid(
+    modifier: Modifier,
+    movies: List<DiscoverMovieResponse.Movie>,
+    navigator: Navigator
+) {
     LazyVerticalGrid(
         modifier = modifier,
         columns = GridCells.Adaptive(128.dp),
     ) {
         items(movies) {
-            AsyncImage(
-                model = it.posterUrl(),
-                contentDescription = it.title,
-            )
+            Box(Modifier.clickable {
+                navigator.navigateToMovieDetail(it.id)
+            }) {
+                AsyncImage(
+                    model = it.posterUrl(),
+                    contentDescription = it.title,
+                )
+            }
         }
     }
 }
