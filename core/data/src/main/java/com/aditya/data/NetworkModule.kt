@@ -41,14 +41,22 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun retrofit(okHttpClient: OkHttpClient): Retrofit {
+    fun retrofit(okHttpClient: OkHttpClient, json: Json): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.TMDB_BASE_URL)
             .addConverterFactory(
-                Json.asConverterFactory("application/json".toMediaType())
+                json.asConverterFactory("application/json".toMediaType())
             )
             .client(okHttpClient)
             .build()
+    }
+
+    @Provides
+    @Singleton
+    fun jsonConfig(): Json {
+        return Json {
+            ignoreUnknownKeys = true
+        }
     }
 
     @Provides

@@ -90,23 +90,6 @@ fun ShowError(modifier: Modifier, exception: Throwable) {
 }
 
 @Composable
-fun ShowMovies(modifier: Modifier, movies: List<DiscoverMovieResponse.Movie>) {
-    LazyColumn(modifier = modifier) {
-        items(movies) { movie ->
-            Row {
-                AsyncImage(model = movie.posterUrl(), contentDescription = movie.title)
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                    text = movie.title
-                )
-            }
-        }
-    }
-}
-
-@Composable
 fun ShowMoviesGrid(
     modifier: Modifier,
     movies: List<DiscoverMovieResponse.Movie>,
@@ -129,25 +112,9 @@ fun ShowMoviesGrid(
     }
 }
 
-@Composable
-fun ShowMovieStaggeredGrid(
-    modifier: Modifier,
-    movies: List<DiscoverMovieResponse.Movie>
-) {
-    LazyVerticalStaggeredGrid(
-        modifier = modifier.fillMaxSize(),
-        columns = StaggeredGridCells.Adaptive(120.dp),
-        verticalItemSpacing = 4.dp,
-        horizontalArrangement = Arrangement.spacedBy(4.dp),
-    ) {
-        items(movies) {
-            AsyncImage(model = it.posterUrl(), contentDescription = it.title)
-        }
-    }
-}
 
 fun DiscoverMovieResponse.Movie.posterUrl(): String {
-    return "${BuildConfig.TMDB_IMAGE_BASE_URL}$posterPath"
+    return BuildConfig.TMDB_IMAGE_BASE_URL.plus(posterPath)
 }
 
 @Composable
