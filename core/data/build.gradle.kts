@@ -50,16 +50,16 @@ dependencies {
     implementation(project(":movie-detail-api"))
 
     //coroutines
-    implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.squareup.retrofit)
-    implementation(libs.squareup.retrofit.converter.kotlinx.serialization)
-    implementation(libs.kotlinx.serialization.json)
+    api(libs.kotlinx.coroutines.core)
+    api(libs.squareup.retrofit)
+    api(libs.squareup.retrofit.converter.kotlinx.serialization)
+    api(libs.kotlinx.serialization.json)
 
     //okhttp
-    implementation(platform(libs.squareup.okhttp.bom))
-    implementation(libs.squareup.okhttp)
-    implementation(libs.squareup.okhttp.logging.interceptor)
-    implementation(libs.squareup.okio)
+    api(platform(libs.squareup.okhttp.bom))
+    api(libs.squareup.okhttp)
+    api(libs.squareup.okhttp.logging.interceptor)
+    api(libs.squareup.okio)
 
     //hilt
     implementation(libs.hilt.android)

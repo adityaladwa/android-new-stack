@@ -41,9 +41,13 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun retrofit(okHttpClient: OkHttpClient, json: Json): Retrofit {
+    fun retrofit(
+        okHttpClient: OkHttpClient,
+        json: Json,
+        baseUrl: String
+    ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BuildConfig.TMDB_BASE_URL)
+            .baseUrl(baseUrl)
             .addConverterFactory(
                 json.asConverterFactory("application/json".toMediaType())
             )
@@ -63,5 +67,11 @@ class NetworkModule {
     @Singleton
     fun movieService(retrofit: Retrofit): MovieService {
         return retrofit.create(MovieService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun baseUrl(): String {
+        return BuildConfig.TMDB_BASE_URL
     }
 }
