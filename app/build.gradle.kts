@@ -22,7 +22,7 @@ android {
             useSupportLibrary = true
         }
     }
-    
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -43,9 +43,7 @@ android {
         compose = true
         buildConfig = false // disable buildConfig to save build time
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
-    }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
