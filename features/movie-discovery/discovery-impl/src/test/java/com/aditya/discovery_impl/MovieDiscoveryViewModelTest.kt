@@ -2,8 +2,9 @@ package com.aditya.discovery_impl
 
 import app.cash.turbine.test
 import com.aditya.data.MovieService
-import com.aditya.data.TestNetworkModule
 import com.aditya.data.ViewModelResult
+import com.aditya.test_util.TestNetworkModule
+import com.aditya.test_util.getJsonFromResource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -66,11 +67,5 @@ class MovieDiscoveryViewModelTest {
             val response = awaitItem() as ViewModelResult.Error
             assert(response.exception is Exception)
         }
-    }
-
-    fun getJsonFromResource(fileName: String): String {
-        val classLoader = this::class.java.classLoader
-        val file = File(classLoader!!.getResource(fileName)!!.file)
-        return file.readText(Charsets.UTF_8)
     }
 }
