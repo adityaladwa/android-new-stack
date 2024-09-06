@@ -34,4 +34,6 @@ dependencies {
     testRuntimeOnly(libs.junit.jupiter.engine)
     testImplementation(project(":data"))
     testImplementation(libs.mockwebserver)
+    testImplementation(libs.turbine)
+    testImplementation(libs.kotlinx.coroutines.test)
 }
