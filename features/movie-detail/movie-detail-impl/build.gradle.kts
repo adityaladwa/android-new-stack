@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.junit5)
 
     alias(libs.plugins.kapt)
     alias(libs.plugins.hilt)
@@ -18,7 +19,7 @@ android {
 dependencies {
     implementation(project(":ui"))
     implementation(project(":data"))
-    api(project(":movie-detail-api"))
+    implementation(project(":movie-detail-api"))
 
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -31,4 +32,7 @@ dependencies {
     //image loading
     implementation(libs.coil)
     implementation(libs.coil.compose)
+
+    //tests
+    testImplementation(project(":test-util"))
 }

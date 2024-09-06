@@ -20,7 +20,6 @@ dependencies {
     implementation(project(":movie-detail-api"))
     implementation(project(":ui"))
     implementation(project(":data"))
-    implementation(project(":test-util"))
 
     //hilt
     implementation(libs.hilt.android)
@@ -31,9 +30,9 @@ dependencies {
     implementation(libs.coil.compose)
 
     //test
+    testImplementation(project(":test-util"))
     testImplementation(libs.junit.jupiter.api)
     testRuntimeOnly(libs.junit.jupiter.engine)
-    testImplementation(project(":data"))
     testImplementation(libs.mockwebserver)
     testImplementation(libs.turbine)
     testImplementation(libs.kotlinx.coroutines.test)
