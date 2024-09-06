@@ -51,15 +51,22 @@ dependencies {
 
     //coroutines
     api(libs.kotlinx.coroutines.core)
-    api(libs.squareup.retrofit)
-    api(libs.squareup.retrofit.converter.kotlinx.serialization)
-    api(libs.kotlinx.serialization.json)
+    api(libs.kotlinx.coroutines.android)
+
 
     //okhttp
     api(platform(libs.squareup.okhttp.bom))
     api(libs.squareup.okhttp)
     api(libs.squareup.okhttp.logging.interceptor)
     api(libs.squareup.okio)
+
+    //retrofit
+    api(libs.squareup.retrofit)
+    api(libs.squareup.retrofit.converter.kotlinx.serialization)
+
+    //serialization
+    api(libs.kotlinx.serialization.json)
+
 
     //hilt
     implementation(libs.hilt.android)

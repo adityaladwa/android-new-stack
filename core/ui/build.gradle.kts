@@ -27,4 +27,11 @@ dependencies {
     api(libs.androidx.ui.graphics)
     api(libs.androidx.material3)
     api(libs.androidx.ui.tooling.preview)
+
+    //image loading
+    api(libs.coil)
+    api(libs.coil.compose)
+
+    debugApi(libs.androidx.ui.tooling)
+    debugApi(libs.androidx.ui.test.manifest)
 }

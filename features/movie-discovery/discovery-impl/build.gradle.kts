@@ -25,15 +25,7 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
 
-    //image loading
-    implementation(libs.coil)
-    implementation(libs.coil.compose)
 
     //test
     testImplementation(project(":test-util"))
-    testImplementation(libs.junit.jupiter.api)
-    testRuntimeOnly(libs.junit.jupiter.engine)
-    testImplementation(libs.mockwebserver)
-    testImplementation(libs.turbine)
-    testImplementation(libs.kotlinx.coroutines.test)
 }

@@ -21,17 +21,9 @@ dependencies {
     implementation(project(":data"))
     implementation(project(":movie-detail-api"))
 
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.androidx.activity)
-
     //hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
-
-    //image loading
-    implementation(libs.coil)
-    implementation(libs.coil.compose)
 
     //tests
     testImplementation(project(":test-util"))
