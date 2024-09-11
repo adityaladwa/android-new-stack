@@ -65,6 +65,9 @@ dependencies {
     implementation(project(":discovery-impl"))
     implementation(project(":movie-detail-impl"))
 
+    // app-start-up
+    implementation(libs.androidx.startup.runtime)
+
     //hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
