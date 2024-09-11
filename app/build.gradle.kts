@@ -62,6 +62,7 @@ dependencies {
 
     implementation(project(":ui"))
     implementation(project(":data"))
+    implementation(project(":logger"))
     implementation(project(":discovery-impl"))
     implementation(project(":movie-detail-impl"))
 

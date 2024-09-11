@@ -11,7 +11,8 @@
         - [x] Unit tests using [JUnit](https://junit.org/junit5/)
             - [x] Use fakes over mocks, create fakes using json files
 - [x] Use hilt for dependency injection
-- [ ] Know what to test
+- [x] Know what to test
     - [x] Unit test ViewModels, including Flows.
     - [x] Unit test data layer entities. That is, repositories and data sources.
     - [ ] UI navigation tests that are useful as regression tests in CI.
+- [ ] Build a logger class

@@ -42,3 +42,6 @@ project(":movie-detail-impl").projectDir = File(rootDir, "features/movie-detail/
 
 include(":testing")
 project(":testing").projectDir = File(rootDir, "core/testing/")
+
+include(":logger")
+project(":logger").projectDir = File(rootDir, "core/logger/")

@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/core/data" />
+            <option value="$PROJECT_DIR$/core/logger" />
             <option value="$PROJECT_DIR$/core/testing" />
             <option value="$PROJECT_DIR$/core/ui" />
             <option value="$PROJECT_DIR$/features/movie-detail/movie-detail-api" />
