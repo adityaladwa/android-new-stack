@@ -11,7 +11,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/core/data" />
-            <option value="$PROJECT_DIR$/core/test-util" />
+            <option value="$PROJECT_DIR$/core/testing" />
             <option value="$PROJECT_DIR$/core/ui" />
             <option value="$PROJECT_DIR$/features/movie-detail/movie-detail-api" />
             <option value="$PROJECT_DIR$/features/movie-detail/movie-detail-impl" />
