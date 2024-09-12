@@ -15,7 +15,7 @@ class CoilImageLoaderInitializer : Initializer<ImageLoader> {
     }
 
     override fun create(context: Context): ImageLoader {
-        logger.d("CoilImageLoaderInitializer", "create")
+        logger.d("creating coil image loader")
         imageLoader = ImageLoader.Builder(context)
             .memoryCache {
                 MemoryCache.Builder(context)

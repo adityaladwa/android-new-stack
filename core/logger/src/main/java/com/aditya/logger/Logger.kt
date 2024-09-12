@@ -1,25 +1,27 @@
 package com.aditya.logger
 
 import android.util.Log
-import kotlin.LazyThreadSafetyMode.NONE
+import java.io.PrintWriter
+import java.io.StringWriter
 
-val logger by lazy(NONE) { RealLogger() }
+var logger = AndroidLogger()
+    private set
 
-interface Logger {
-    fun d(tag: String, message: String)
-    fun e(tag: String, message: String, error: Throwable? = null)
-    fun i(tag: String, message: String)
+fun disableLogging() {
+    logger.enabled = false
 }
 
-enum class LogLevel {
-    DEBUG,
-    ERROR,
-    INFO
+private interface Logger {
+    var enabled: Boolean
+    fun d(message: String)
+    fun e(message: String, error: Throwable? = null)
+    fun i(message: String)
+    fun w(message: String)
 }
 
 fun interface LogHandler {
     fun log(
-        level: LogLevel,
+        priority: Int,
         tag: String,
         message: String,
         throwable: Throwable?
@@ -27,35 +29,54 @@ fun interface LogHandler {
 }
 
 fun interface LogFormatter {
-    fun format(level: LogLevel, tag: String, message: String): String
+    fun format(priority: Int, tag: String, message: String, throwable: Throwable?): String
 }
 
-val consoleLogFormatter = LogFormatter { level, tag, message ->
-    "[$level] - $tag : $message"
-}
-
-val consoleLogHandler = LogHandler { level, tag, message, throwable ->
-    val formattedMessage = consoleLogFormatter.format(level, tag, message)
-    when (level) {
-        LogLevel.DEBUG -> Log.d(tag, formattedMessage)
-        LogLevel.ERROR -> Log.e(tag, formattedMessage, throwable)
-        LogLevel.INFO -> Log.i(tag, formattedMessage)
+val consoleLogFormatter = LogFormatter { _, _, message, throwable ->
+    val formattedMessage = StringBuilder(message)
+    if (throwable != null) {
+        formattedMessage.append("\n")
+        formattedMessage.append(getStackTraceString(throwable))
     }
+    formattedMessage.toString()
 }
 
-class RealLogger(
-    private val logHandlers: List<LogHandler> = listOf(consoleLogHandler)
-) : Logger {
-    override fun d(tag: String, message: String) = log(LogLevel.DEBUG, tag, message)
+private fun getStackTraceString(t: Throwable): String {
+    val sw = StringWriter(256)
+    val pw = PrintWriter(sw, false)
+    t.printStackTrace(pw)
+    pw.flush()
+    return sw.toString()
+}
 
-    override fun e(tag: String, message: String, error: Throwable?) =
-        log(LogLevel.ERROR, tag, message, error)
+val consoleLogHandler = LogHandler { priority, tag, message, throwable ->
+    val formattedMessage = consoleLogFormatter.format(priority, tag, message, throwable)
+    Log.println(priority, tag, formattedMessage)
+}
 
-    override fun i(tag: String, message: String) = log(LogLevel.INFO, tag, message)
+class AndroidLogger(
+    private val logHandlers: List<LogHandler> = listOf(consoleLogHandler),
+    override var enabled: Boolean = true
+) : com.aditya.logger.Logger {
+    override fun d(message: String) = log(Log.DEBUG, getTag(), message)
 
-    private fun log(level: LogLevel, tag: String, message: String, throwable: Throwable? = null) {
+    override fun e(message: String, error: Throwable?) =
+        log(Log.ERROR, getTag(), message, error)
+
+    override fun i(message: String) = log(Log.INFO, getTag(), message)
+
+    override fun w(message: String) {
+        log(Log.WARN, getTag(), message)
+    }
+
+    private fun log(priority: Int, tag: String, message: String, throwable: Throwable? = null) {
+        if (!enabled) return // Do not log if disabled
         for (handler in logHandlers) {
-            handler.log(level, tag, message, throwable)
+            handler.log(priority, tag, message, throwable)
         }
+    }
+
+    private fun getTag(): String {
+        return Thread.currentThread().stackTrace[4].className.substringAfterLast('.')
     }
 }

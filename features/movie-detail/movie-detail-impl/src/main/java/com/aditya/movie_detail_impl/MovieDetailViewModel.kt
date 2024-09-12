@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aditya.data.MovieService
 import com.aditya.data.ViewModelResult
+import com.aditya.logger.logger
 import com.aditya.movie_detail_api.MovieDetailResponse
-import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -20,6 +20,7 @@ class MovieDetailViewModel @Inject constructor(
 ) : ViewModel() {
 
     fun movieDetailsFlow(movieId: Int): StateFlow<ViewModelResult<MovieDetailResponse>> {
+        logger.d("Fetching movie details for movieId: $movieId")
         return flow<ViewModelResult<MovieDetailResponse>> {
             val movieDetail = movieService.movieDetails(movieId)
             emit(ViewModelResult.Success(movieDetail))

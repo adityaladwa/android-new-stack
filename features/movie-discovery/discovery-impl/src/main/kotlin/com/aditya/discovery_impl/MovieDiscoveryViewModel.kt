@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.aditya.data.MovieService
 import com.aditya.data.ViewModelResult
 import com.aditya.discovery_api.DiscoverMovieResponse
+import com.aditya.logger.AndroidLogger
+import com.aditya.logger.logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -19,6 +21,7 @@ class MovieDiscoveryViewModel @Inject constructor(
 ) : ViewModel() {
 
     fun discoverMovies(): StateFlow<ViewModelResult<DiscoverMovieResponse>> {
+        logger.d("Discovering movies")
         return flow<ViewModelResult<DiscoverMovieResponse>> {
             val response = movieService.discoverMovies()
             emit(ViewModelResult.Success(response))

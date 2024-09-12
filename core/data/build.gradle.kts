@@ -48,6 +48,7 @@ android {
 dependencies {
     implementation(project(":discovery-api"))
     implementation(project(":movie-detail-api"))
+    api(project(":logger"))
 
     //coroutines
     api(libs.kotlinx.coroutines.core)
