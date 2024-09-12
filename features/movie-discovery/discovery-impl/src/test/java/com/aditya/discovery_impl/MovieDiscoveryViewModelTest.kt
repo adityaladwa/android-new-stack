@@ -3,6 +3,7 @@ package com.aditya.discovery_impl
 import app.cash.turbine.test
 import com.aditya.data.MovieService
 import com.aditya.data.ViewModelResult
+import com.aditya.test_util.TestAnalyticsModule
 import com.aditya.test_util.TestExtension
 import com.aditya.test_util.TestNetworkModule
 import com.aditya.test_util.getJsonFromResource
@@ -18,11 +19,12 @@ import org.junit.jupiter.api.extension.ExtendWith
 class MovieDiscoveryViewModelTest {
     private val server = MockWebServer()
     private val retrofit = TestNetworkModule.retrofit(server.url("/").toString())
+    private val analytics = TestAnalyticsModule.fakeAnalytics()
     private lateinit var viewModel: MovieDiscoveryViewModel
 
     @BeforeEach
     fun setUp() {
-        viewModel = MovieDiscoveryViewModel(retrofit.create(MovieService::class.java))
+        viewModel = MovieDiscoveryViewModel(retrofit.create(MovieService::class.java), analytics)
     }
 
     @AfterEach

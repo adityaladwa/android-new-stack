@@ -13,6 +13,7 @@ android {
 
 dependencies {
     implementation(project(":data"))
+    implementation(project(":analytics"))
 
     //test
     api(libs.junit.jupiter.api)

@@ -20,6 +20,7 @@ dependencies {
     implementation(project(":movie-detail-api"))
     implementation(project(":ui"))
     implementation(project(":data"))
+    implementation(project(":analytics"))
 
     //hilt
     implementation(libs.hilt.android)
