@@ -30,17 +30,17 @@ android {
         buildConfigField(
             "String",
             "TMDB_BASE_URL",
-            localProperties.getProperty("TMDB_BASE_URL").toString()
+            localProperties.getProperty("TMDB_BASE_URL") ?: "\"default\""
         )
         buildConfigField(
             "String",
             "TMDB_IMAGE_BASE_URL",
-            localProperties.getProperty("TMDB_IMAGE_BASE_URL").toString()
+            localProperties.getProperty("TMDB_IMAGE_BASE_URL") ?: "\"default\""
         )
         buildConfigField(
             "String",
             "TMDB_API_KEY",
-            localProperties.getProperty("TMDB_API_KEY").toString()
+            localProperties.getProperty("TMDB_API_KEY") ?: "\"default\""
         )
     }
 }
