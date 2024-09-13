@@ -11,16 +11,24 @@ import dagger.hilt.components.SingletonComponent
 import java.io.File
 import javax.inject.Singleton
 
+internal const val ANALYTICS_FILE_NAME = "analytics.data"
+
 @Module
 @InstallIn(SingletonComponent::class)
 class AnalyticsModule {
 
     @Provides
     @Singleton
-    fun providesAnalytics(@ApplicationContext context: Context): Analytics {
+    fun providesAnalytics(file: File): Analytics {
         return AnalyticsImpl(
             LocalAnalyticsDispatcher(DispatcherKey.LOCAL_DISPATCHER),
-            DiskQueueFileAnalyticsStore(File(context.filesDir, "analytics.data"))
+            DiskQueueFileAnalyticsStore(file)
         )
+    }
+
+    @Provides
+    @Singleton
+    fun providesFile(@ApplicationContext context: Context): File {
+        return File(context.filesDir, ANALYTICS_FILE_NAME)
     }
 }
