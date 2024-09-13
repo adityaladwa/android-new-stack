@@ -19,7 +19,7 @@ data class AnalyticEvent(
     val eventName: String,
     val id: String = UUID.randomUUID().toString(),
     val eventProperties: Map<String, String?> = mutableMapOf(),
-    val superProperties: Map<String, String?> = mutableMapOf() // TODO - support for Any type
+    val superProperties: Map<String, String?> = mutableMapOf()
 )
 
 @JvmInline
