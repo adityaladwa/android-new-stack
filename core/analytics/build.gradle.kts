@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    kotlin("plugin.serialization") version libs.versions.kotlin
 
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
@@ -17,9 +18,14 @@ android {
 dependencies {
     implementation(project(":logger"))
 
+    implementation(libs.squareup.tape)
+
     //coroutines
-    api(libs.kotlinx.coroutines.core)
-    api(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+
+    //serialization
+    implementation(libs.kotlinx.serialization.json)
 
     //hilt
     implementation(libs.hilt.android)

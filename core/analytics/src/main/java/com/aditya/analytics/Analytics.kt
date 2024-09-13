@@ -1,5 +1,7 @@
 package com.aditya.analytics
 
+import com.aditya.analytics.dispatcher.AnalyticsDispatcher
+import com.aditya.analytics.store.AnalyticsStore
 import com.aditya.logger.logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -7,16 +9,17 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
-import java.util.LinkedList
+import kotlinx.serialization.Serializable
 import java.util.UUID
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
+@Serializable
 data class AnalyticEvent(
     val eventName: String,
-    val id: UUID = UUID.randomUUID(),
-    val eventProperties: Map<String, Any?> = mutableMapOf(),
-    val superProperties: Map<String, Any?> = mutableMapOf()
+    val id: String = UUID.randomUUID().toString(),
+    val eventProperties: Map<String, String?> = mutableMapOf(),
+    val superProperties: Map<String, String?> = mutableMapOf() // TODO - support for Any type
 )
 
 @JvmInline
@@ -37,18 +40,6 @@ value class DispatcherKey(val key: String) {
 interface Analytics {
     fun track(event: AnalyticEvent)
     fun track(eventName: EventName)
-}
-
-interface AnalyticsDispatcher {
-    val key: DispatcherKey
-    suspend fun dispatch(event: AnalyticEvent)
-    suspend fun dispatch(events: List<AnalyticEvent>)
-}
-
-interface AnalyticsStore {
-    val size: Int
-    suspend fun store(event: AnalyticEvent)
-    fun batch(batchSize: Int): List<AnalyticEvent>
 }
 
 class AnalyticsImpl(
@@ -93,45 +84,4 @@ class AnalyticsImpl(
             dispatcher.dispatch(it)
         }
     }
-}
-
-class LocalAnalyticsDispatcher(override val key: DispatcherKey) : AnalyticsDispatcher {
-
-    override suspend fun dispatch(event: AnalyticEvent) {
-        logger.d("dispatching event: $event")
-        // simulate some network call
-        delay(1000)
-        logger.d("event dispatched: $event")
-    }
-
-    override suspend fun dispatch(events: List<AnalyticEvent>) {
-        for (event in events) {
-            dispatch(event)
-        }
-    }
-}
-
-class InMemoryAnalyticsStore : AnalyticsStore {
-    private val events = LinkedList<AnalyticEvent>()
-
-    override suspend fun store(event: AnalyticEvent) {
-        events.offer(event)
-        logger.d("event stored: $event")
-    }
-
-    override fun batch(batchSize: Int): List<AnalyticEvent> {
-        var remaining = batchSize
-        events.take(batchSize)
-        val batch = mutableListOf<AnalyticEvent>()
-        while (events.isNotEmpty() && remaining >= 0) {
-            val event = events.poll()
-            event ?: break
-            batch.add(event)
-            remaining--
-        }
-        return batch.toList()
-    }
-
-    override val size: Int
-        get() = events.size
 }

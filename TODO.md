@@ -15,4 +15,10 @@
     - [x] Unit test ViewModels, including Flows.
     - [x] Unit test data layer entities. That is, repositories and data sources.
     - [ ] UI navigation tests that are useful as regression tests in CI.
-- [ ] Build a logger class
+- [x] Build a logger module
+- [ ] Build Analytics module
+    - [x] Cache events in disk and send them on network as batches
+    - [x] Support for super properties
+    - [x] Support for multiple analytics services via dispatchers
+    - [ ] Tests for analytics module
+    - [ ] Custom serializer for Any type
