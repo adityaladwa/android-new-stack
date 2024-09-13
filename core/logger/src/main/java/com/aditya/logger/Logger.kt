@@ -1,11 +1,12 @@
 package com.aditya.logger
 
 import android.util.Log
+import android.util.Log.getStackTraceString
 import java.io.PrintWriter
 import java.io.StringWriter
+import kotlin.LazyThreadSafetyMode.NONE
 
-var logger = AndroidLogger()
-    private set
+val logger by lazy(NONE) { AndroidLogger() }
 
 fun disableLogging() {
     logger.enabled = false
@@ -57,7 +58,7 @@ val consoleLogHandler = LogHandler { priority, tag, message, throwable ->
 class AndroidLogger(
     private val logHandlers: List<LogHandler> = listOf(consoleLogHandler),
     override var enabled: Boolean = true
-) : com.aditya.logger.Logger {
+) : Logger {
     override fun d(message: String) = log(Log.DEBUG, getTag(), message)
 
     override fun e(message: String, error: Throwable?) =

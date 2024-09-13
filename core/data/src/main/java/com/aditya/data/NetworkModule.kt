@@ -59,6 +59,7 @@ class NetworkModule {
     @Singleton
     fun jsonConfig(): Json {
         return Json {
+            encodeDefaults = true
             ignoreUnknownKeys = true
         }
     }

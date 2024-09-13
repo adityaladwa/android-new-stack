@@ -45,3 +45,6 @@ project(":testing").projectDir = File(rootDir, "core/testing/")
 
 include(":logger")
 project(":logger").projectDir = File(rootDir, "core/logger/")
+
+include(":analytics")
+project(":analytics").projectDir = File(rootDir, "core/analytics/")

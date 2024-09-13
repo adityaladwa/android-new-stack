@@ -27,6 +27,7 @@ composeBom = "2024.09.01"
 squareup-okhttp-bom = "4.12.0"
 squareup-okio = "3.9.0"
 squareup-retrofit = "2.11.0"
+squareup-tape = "2.0.0-beta1"
 
 coil = "2.7.0"
 
@@ -66,6 +67,7 @@ squareup-okhttp-bom = { group = "com.squareup.okhttp3", name = "okhttp-bom", ver
 squareup-okhttp = { group = "com.squareup.okhttp3", name = "okhttp" }
 squareup-okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor" }
 squareup-okio = { group = "com.squareup.okio", name = "okio", version.ref = "squareup-okio" }
+squareup-tape = { group = "com.squareup.tape2", name = "tape", version.ref = "squareup-tape" }
 squareup-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "squareup-retrofit" }
 squareup-retrofit-converter-kotlinx-serialization = { group = "com.squareup.retrofit2", name = "converter-kotlinx-serialization", version.ref = "squareup-retrofit" }
 

@@ -1,8 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.junit5)
+    kotlin("plugin.serialization") version libs.versions.kotlin
 
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
@@ -11,22 +10,24 @@ plugins {
 // Apply the Groovy script from the root directory
 apply(from = rootProject.file("gradle/base-library.gradle"))
 
+
 android {
-    namespace = "com.aditya.discovery.impl"
+    namespace = "com.aditya.analytics"
 }
 
 dependencies {
-    implementation(project(":discovery-api"))
-    implementation(project(":movie-detail-api"))
-    implementation(project(":ui"))
-    implementation(project(":data"))
-    implementation(project(":analytics"))
+    implementation(project(":logger"))
+
+    implementation(libs.squareup.tape)
+
+    //coroutines
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+
+    //serialization
+    implementation(libs.kotlinx.serialization.json)
 
     //hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
-    testImplementation(project(":testing"))
-
-
-    //test
 }
