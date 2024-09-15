@@ -1,9 +1,10 @@
 package com.aditya.discovery_impl
 
 import app.cash.turbine.test
+import com.aditya.analytics.EventName.Companion.event
+import com.aditya.analytics.fake.FakeAnalytics
 import com.aditya.data.MovieService
 import com.aditya.data.ViewModelResult
-import com.aditya.test_util.TestAnalyticsModule
 import com.aditya.test_util.TestExtension
 import com.aditya.test_util.TestNetworkModule
 import com.aditya.test_util.getJsonFromResource
@@ -19,7 +20,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class MovieDiscoveryViewModelTest {
     private val server = MockWebServer()
     private val retrofit = TestNetworkModule.retrofit(server.url("/").toString())
-    private val analytics = TestAnalyticsModule.fakeAnalytics()
+    private val analytics = FakeAnalytics.fakeAnalytics()
     private lateinit var viewModel: MovieDiscoveryViewModel
 
     @BeforeEach
@@ -46,6 +47,8 @@ class MovieDiscoveryViewModelTest {
             assert(response.data.movies.size == 20)
             assert(response.data.page == 1)
         }
+
+        analytics.assertEvent("discover_movie".event)
     }
 
     @Test

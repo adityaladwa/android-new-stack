@@ -1,11 +1,15 @@
 package com.aditya.analytics.store
 
 import com.aditya.analytics.AnalyticEvent
+import com.aditya.analytics.EventName
 import com.aditya.logger.logger
 import java.util.concurrent.ConcurrentLinkedQueue
 
 class InMemoryAnalyticsStore : AnalyticsStore {
     private val events = ConcurrentLinkedQueue<AnalyticEvent>()
+
+    override val size: Int
+        get() = events.size
 
     override suspend fun store(event: AnalyticEvent) {
         events.offer(event)
@@ -21,6 +25,11 @@ class InMemoryAnalyticsStore : AnalyticsStore {
         return batch.toList()
     }
 
-    override val size: Int
-        get() = events.size
+    fun exist(event: AnalyticEvent): Boolean {
+        return event in events
+    }
+
+    fun exist(eventName: EventName, count: Int): Boolean {
+        return events.count { it.eventName == eventName.name } == count
+    }
 }
