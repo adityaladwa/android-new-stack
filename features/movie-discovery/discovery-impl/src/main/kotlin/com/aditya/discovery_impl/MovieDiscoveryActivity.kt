@@ -21,7 +21,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
@@ -46,7 +50,11 @@ class MovieDiscoveryActivity : ComponentActivity() {
         setContent {
             AndroidnewstackTheme {
                 Scaffold(Modifier.fillMaxSize()) { innerPadding ->
-                    MovieDiscoveryScreen(Modifier.padding(innerPadding), viewModel, movieDetailNavigator)
+                    MovieDiscoveryScreen(
+                        Modifier.padding(innerPadding),
+                        viewModel,
+                        movieDetailNavigator
+                    )
                 }
             }
         }
@@ -81,6 +89,7 @@ fun ShowError(modifier: Modifier, exception: Throwable) {
     )
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun ShowMoviesGrid(
     modifier: Modifier,
@@ -88,7 +97,9 @@ fun ShowMoviesGrid(
     movieDetailNavigator: MovieDetailNavigator
 ) {
     LazyVerticalGrid(
-        modifier = modifier,
+        modifier = modifier
+            .semantics { testTagsAsResourceId = true }
+            .testTag("movies_grid"),
         columns = GridCells.Adaptive(128.dp),
     ) {
         items(movies) {
@@ -109,11 +120,15 @@ fun DiscoverMovieResponse.Movie.posterUrl(): String {
     return BuildConfig.TMDB_IMAGE_BASE_URL.plus(posterPath)
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun ProgressLoader() {
     Box(
         contentAlignment = Alignment.Center,
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+            .semantics { testTagsAsResourceId = true }
+            .testTag("progress_loader")
     ) {
         CircularProgressIndicator(
             modifier = Modifier
