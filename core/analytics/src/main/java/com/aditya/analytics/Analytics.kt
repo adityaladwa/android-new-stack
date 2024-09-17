@@ -10,6 +10,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonElement
 import java.util.UUID
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
@@ -18,8 +19,8 @@ import kotlin.time.Duration.Companion.seconds
 data class AnalyticEvent(
     val eventName: String,
     val id: String = UUID.randomUUID().toString(),
-    val eventProperties: Map<String, String?> = mutableMapOf(),
-    val superProperties: Map<String, String?> = mutableMapOf()
+    val eventProperties: Map<String, JsonElement?> = mutableMapOf(),
+    val superProperties: Map<String, JsonElement?> = mutableMapOf()
 )
 
 @JvmInline
@@ -81,7 +82,11 @@ class AnalyticsImpl(
 
     private suspend fun flush() {
         store.batch(batchSize).also {
-            dispatcher.dispatch(it)
+            val failedEvents = dispatcher.dispatch(it)
+            // requeue failed events
+            for (event in failedEvents) {
+                store.store(event)
+            }
         }
     }
 }

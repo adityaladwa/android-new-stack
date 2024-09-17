@@ -20,5 +20,5 @@
     - [x] Cache events in disk and send them on network as batches
     - [x] Support for super properties
     - [x] Support for multiple analytics services via dispatchers
+    - [x] Fake analytics service for testing
     - [ ] Tests for analytics module
-    - [ ] Custom serializer for Any type

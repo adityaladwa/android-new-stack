@@ -10,7 +10,6 @@ import org.junit.jupiter.api.extension.AfterAllCallback
 import org.junit.jupiter.api.extension.AfterEachCallback
 import org.junit.jupiter.api.extension.BeforeEachCallback
 import org.junit.jupiter.api.extension.ExtensionContext
-import java.io.File
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class TestExtension : BeforeEachCallback, AfterEachCallback, AfterAllCallback {
@@ -26,9 +25,5 @@ class TestExtension : BeforeEachCallback, AfterEachCallback, AfterAllCallback {
     }
 
     override fun afterAll(context: ExtensionContext?) {
-        val testFile = File(TestAnalyticsModule.TEST_ANALYTICS_FILE)
-        if (testFile.exists()) {
-            testFile.delete()
-        }
     }
 }
