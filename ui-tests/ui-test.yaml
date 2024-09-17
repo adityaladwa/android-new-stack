@@ -1,0 +1,7 @@
+appId: com.aditya.newstack
+---
+- launchApp
+- assertVisible:
+    id: "progress_loader"
+- assertVisible:
+    id: "movies_grid"
