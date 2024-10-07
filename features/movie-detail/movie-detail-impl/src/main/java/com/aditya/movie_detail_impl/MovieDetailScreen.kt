@@ -3,6 +3,7 @@ package com.aditya.movie_detail_impl
 import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -24,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.aditya.data.BuildConfig
@@ -32,31 +34,45 @@ import com.aditya.movie_detail_api.MovieDetailResponse
 import com.aditya.ui.theme.AndroidnewstackTheme
 
 @Composable
-fun MovieDetailScreen(viewModel: MovieDetailViewModel, movieId: Int) {
+fun MovieDetailScreen(
+    movieId: Int,
+    viewModel: MovieDetailViewModel = hiltViewModel()
+) {
     AndroidnewstackTheme {
         val movieDetailFlow = remember { viewModel.movieDetailsFlow(movieId) }
         val result by movieDetailFlow.collectAsStateWithLifecycle()
-        when (val currentResult = result) {
-            is ViewModelResult.Error -> ShowError(currentResult.exception)
-            ViewModelResult.Loading -> ProgressLoader()
-            is ViewModelResult.Success -> CollapsibleToolbarScreen(currentResult.data)
+        Scaffold { innerPadding ->
+            when (val currentResult = result) {
+                is ViewModelResult.Error -> ShowError(currentResult.exception, innerPadding)
+                ViewModelResult.Loading -> ProgressLoader(innerPadding)
+                is ViewModelResult.Success -> CollapsibleToolbarScreen(
+                    currentResult.data,
+                    innerPadding
+                )
+            }
         }
     }
 }
 
 @Composable
-private fun ShowError(exception: Throwable) {
+private fun ShowError(
+    exception: Throwable,
+    innerPadding: PaddingValues
+) {
     Log.e("MovieDetailActivity", "ShowError: ", exception)
     Text(
+        modifier = Modifier.padding(innerPadding),
         text = exception.message ?: "Something went wrong"
     )
 }
 
 @Composable
-private fun ProgressLoader() {
+private fun ProgressLoader(innerPadding: PaddingValues) {
     Box(
         contentAlignment = Alignment.Center,
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .padding(innerPadding)
+            .fillMaxSize()
     ) {
         CircularProgressIndicator(
             modifier = Modifier
@@ -68,89 +84,87 @@ private fun ProgressLoader() {
 }
 
 @Composable
-private fun CollapsibleToolbarScreen(data: MovieDetailResponse) {
-    Scaffold { innerPadding ->
-        Column(
+private fun CollapsibleToolbarScreen(data: MovieDetailResponse, innerPadding: PaddingValues) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(innerPadding)
+            .verticalScroll(rememberScrollState())
+    ) {
+        AsyncImage(
+            model = BuildConfig.TMDB_IMAGE_BASE_URL.plus(data.backdropPath),
+            contentDescription = "Toolbar Image",
+            contentScale = ContentScale.Crop,
             modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-                .verticalScroll(rememberScrollState())
+                .fillMaxWidth()
+                .height(300.dp)
+        )
+        Text(
+            text = data.title,
+            style = MaterialTheme.typography.headlineLarge,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        )
+        LazyRow(
+            modifier = Modifier.padding(16.dp)
         ) {
-            AsyncImage(
-                model = BuildConfig.TMDB_IMAGE_BASE_URL.plus(data.backdropPath),
-                contentDescription = "Toolbar Image",
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(300.dp)
-            )
-            Text(
-                text = data.title,
-                style = MaterialTheme.typography.headlineLarge,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            )
-            LazyRow(
-                modifier = Modifier.padding(16.dp)
-            ) {
-                items(data.genres.size) {
-                    SuggestionChip(
-                        onClick = {},
-                        modifier = Modifier
-                            .padding(start = 4.dp, end = 4.dp),
-                        label = { Text(text = data.genres[it].name) },
-                    )
-                }
+            items(data.genres.size) {
+                SuggestionChip(
+                    onClick = {},
+                    modifier = Modifier
+                        .padding(start = 4.dp, end = 4.dp),
+                    label = { Text(text = data.genres[it].name) },
+                )
             }
-            Text(
-                text = data.overview,
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            )
-            Text(
-                text = "Release Date: ${data.releaseDate}",
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.padding(16.dp)
-            )
-            Text(
-                text = "Rating: ${data.voteAverage}",
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.padding(16.dp)
-            )
-            Text(
-                text = "Popularity: ${data.popularity}",
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.padding(16.dp)
-            )
-            Text(
-                text = "Vote Count: ${data.voteCount}",
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.padding(16.dp)
-            )
-            Text(
-                text = "Original Language: ${data.originalLanguage}",
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.padding(16.dp)
-            )
-            Text(
-                text = "Status: ${data.status}",
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.padding(16.dp)
-            )
-            Text(
-                text = "Budget: ${data.budget}",
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.padding(16.dp)
-            )
-            Text(
-                text = "Revenue: ${data.revenue}",
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.padding(16.dp)
-            )
         }
+        Text(
+            text = data.overview,
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        )
+        Text(
+            text = "Release Date: ${data.releaseDate}",
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier.padding(16.dp)
+        )
+        Text(
+            text = "Rating: ${data.voteAverage}",
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier.padding(16.dp)
+        )
+        Text(
+            text = "Popularity: ${data.popularity}",
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier.padding(16.dp)
+        )
+        Text(
+            text = "Vote Count: ${data.voteCount}",
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier.padding(16.dp)
+        )
+        Text(
+            text = "Original Language: ${data.originalLanguage}",
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier.padding(16.dp)
+        )
+        Text(
+            text = "Status: ${data.status}",
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier.padding(16.dp)
+        )
+        Text(
+            text = "Budget: ${data.budget}",
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier.padding(16.dp)
+        )
+        Text(
+            text = "Revenue: ${data.revenue}",
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier.padding(16.dp)
+        )
     }
 }

@@ -20,6 +20,7 @@ dependencies {
     api(libs.androidx.core.ktx)
     api(libs.androidx.lifecycle.runtime.ktx)
     api(libs.androidx.lifecycle.runtime.compose)
+    api(libs.androidx.hilt.navigation.compose)
 
     api(platform(libs.androidx.compose.bom))
     api(libs.androidx.activity.compose)

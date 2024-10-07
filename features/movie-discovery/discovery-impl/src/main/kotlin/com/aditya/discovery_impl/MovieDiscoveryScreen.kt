@@ -22,6 +22,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.aditya.data.BuildConfig
@@ -32,8 +33,8 @@ import com.aditya.ui.theme.AndroidnewstackTheme
 
 @Composable
 fun MovieDiscoveryScreen(
-    viewModel: MovieDiscoveryViewModel,
-    movieDetailNavigator: MovieDetailNavigator
+    movieDetailNavigator: MovieDetailNavigator,
+    viewModel: MovieDiscoveryViewModel = hiltViewModel()
 ) {
     AndroidnewstackTheme {
         Scaffold(Modifier.fillMaxSize()) { innerPadding ->

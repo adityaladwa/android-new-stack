@@ -6,12 +6,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MovieDetailActivity : ComponentActivity() {
-    private val viewModel: MovieDetailViewModel by viewModels()
     private val movieId by lazy { intent.getIntExtra(MOVIE_ID, 0) }
 
     companion object {
@@ -28,7 +26,7 @@ class MovieDetailActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            MovieDetailScreen(viewModel, movieId)
+            MovieDetailScreen(movieId)
         }
     }
 }

@@ -4,14 +4,12 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import com.aditya.movie_detail_api.MovieDetailNavigator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MovieDiscoveryActivity : ComponentActivity() {
-    private val viewModel: MovieDiscoveryViewModel by viewModels()
 
     @Inject
     lateinit var movieDetailNavigator: MovieDetailNavigator
@@ -20,7 +18,7 @@ class MovieDiscoveryActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            MovieDiscoveryScreen(viewModel, movieDetailNavigator)
+            MovieDiscoveryScreen(movieDetailNavigator)
         }
     }
 }
