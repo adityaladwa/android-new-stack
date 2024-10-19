@@ -2,7 +2,6 @@ package com.aditya.movie_detail_impl
 
 import app.cash.turbine.test
 import com.aditya.data.MovieService
-import com.aditya.data.ViewModelResult
 import com.aditya.test_util.TestExtension
 import com.aditya.test_util.TestNetworkModule
 import com.aditya.test_util.getJsonFromResource

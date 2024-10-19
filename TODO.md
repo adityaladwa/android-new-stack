@@ -1,13 +1,14 @@
-- [ ] Create layered architecture
+- [x] Create layered architecture
   per [Google recommended architecture](https://developer.android.com/topic/architecture/recommendations)
     - [x] Expose public api via `api`, `impl`
       modules [Link](https://speakerdeck.com/vrallev/android-at-scale-at-square)
     - [x] Create a `data` module for data layer
         - [x] use coroutine flows for communication b/w layers
-    - [ ] Create a `feature` module for each feature
+        - [x] repositories for fetching data
+    - [x] Create a `feature` module for each feature
         - [x] Use android-view-models
         - [x] Use jetpack-compose
-        - [ ] UI tests using [Maestro UI testing](https://github.com/mobile-dev-inc/maestro)
+        - [x] UI tests using [Maestro UI testing](https://github.com/mobile-dev-inc/maestro)
         - [x] Unit tests using [JUnit](https://junit.org/junit5/)
             - [x] Use fakes over mocks, create fakes using json files
 - [x] Use hilt for dependency injection

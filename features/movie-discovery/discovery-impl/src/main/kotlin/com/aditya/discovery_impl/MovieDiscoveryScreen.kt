@@ -14,7 +14,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -26,7 +25,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.aditya.data.BuildConfig
-import com.aditya.data.ViewModelResult
 import com.aditya.discovery_api.DiscoverMovieResponse
 import com.aditya.movie_detail_api.MovieDetailNavigator
 import com.aditya.ui.theme.AndroidnewstackTheme
@@ -36,19 +34,26 @@ fun MovieDiscoveryScreen(
     movieDetailNavigator: MovieDetailNavigator,
     viewModel: MovieDiscoveryViewModel = hiltViewModel()
 ) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    MovieDiscoveryUi(uiState, movieDetailNavigator)
+}
+
+@Composable
+private fun MovieDiscoveryUi(
+    uiState: MovieDiscoveryViewModel.UiState,
+    movieDetailNavigator: MovieDetailNavigator
+) {
     AndroidnewstackTheme {
         Scaffold(Modifier.fillMaxSize()) { innerPadding ->
             val modifier = Modifier.padding(innerPadding)
-            val moviesFlow = remember { viewModel.discoverMovies() }
-            val result by moviesFlow.collectAsStateWithLifecycle()
-            when (val currentResult = result) {
-                is ViewModelResult.Error -> {
-                    ShowError(modifier, currentResult.exception)
+            when (uiState) {
+                is MovieDiscoveryViewModel.UiState.Error -> {
+                    ShowError(modifier, uiState.error)
                 }
 
-                ViewModelResult.Loading -> ProgressLoader()
-                is ViewModelResult.Success -> {
-                    ShowMoviesGrid(modifier, currentResult.data.movies, movieDetailNavigator)
+                MovieDiscoveryViewModel.UiState.Loading -> ProgressLoader()
+                is MovieDiscoveryViewModel.UiState.Success -> {
+                    ShowMoviesGrid(modifier, uiState.data.movies, movieDetailNavigator)
                 }
             }
         }

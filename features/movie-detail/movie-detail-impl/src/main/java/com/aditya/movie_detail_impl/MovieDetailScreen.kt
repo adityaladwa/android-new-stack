@@ -18,8 +18,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -29,7 +29,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.aditya.data.BuildConfig
-import com.aditya.data.ViewModelResult
 import com.aditya.movie_detail_api.MovieDetailResponse
 import com.aditya.ui.theme.AndroidnewstackTheme
 
@@ -38,15 +37,28 @@ fun MovieDetailScreen(
     movieId: Int,
     viewModel: MovieDetailViewModel = hiltViewModel()
 ) {
+    LaunchedEffect(movieId) {
+        viewModel.setMovieId(movieId)
+    }
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    MovieDetailUi(uiState)
+}
+
+@Composable
+private fun MovieDetailUi(
+    uiState: MovieDetailViewModel.UiState
+) {
     AndroidnewstackTheme {
-        val movieDetailFlow = remember { viewModel.movieDetailsFlow(movieId) }
-        val result by movieDetailFlow.collectAsStateWithLifecycle()
         Scaffold { innerPadding ->
-            when (val currentResult = result) {
-                is ViewModelResult.Error -> ShowError(currentResult.exception, innerPadding)
-                ViewModelResult.Loading -> ProgressLoader(innerPadding)
-                is ViewModelResult.Success -> CollapsibleToolbarScreen(
-                    currentResult.data,
+            when (uiState) {
+                is MovieDetailViewModel.UiState.Error -> ShowError(
+                    uiState.error,
+                    innerPadding
+                )
+
+                MovieDetailViewModel.UiState.Loading -> ProgressLoader(innerPadding)
+                is MovieDetailViewModel.UiState.ShowMovieDetails -> CollapsibleToolbarScreen(
+                    uiState.data,
                     innerPadding
                 )
             }
